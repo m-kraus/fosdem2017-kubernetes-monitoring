@@ -1,7 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: kube-state-metrics-deployment
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: kube-state-metrics
+  namespace: monitoring
+  labels:
+    app: kube-state-metrics
 spec:
   replicas: 1
   template:
