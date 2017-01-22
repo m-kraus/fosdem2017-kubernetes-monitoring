@@ -1,0 +1,54 @@
+minikube dashboard
+
+
+
+kubectl get all -o wide
+NAME             CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE       SELECTOR
+svc/kubernetes   10.0.0.1     <none>        443/TCP   15h       <none>
+
+
+
+kubectl create -f monitoring-namespace.yml
+kubectl create -f prometheus-configmap.yml
+kubectl create -f prometheus-deployment.yml
+kubectl create -f prometheus-service.yml
+
+kubectl get all -o wide --namespace monitoring
+NAME                            READY     STATUS    RESTARTS   AGE       IP           NODE
+po/prometheus-849432243-t6zst   1/1       Running   0          59s       172.17.0.4   minikube
+
+NAME             CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE       SELECTOR
+svc/prometheus   10.0.0.152   <pending>     9090:32615/TCP   42s       app=prometheus
+
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/prometheus   1         1         1            1           59s
+
+NAME                      DESIRED   CURRENT   READY     AGE       CONTAINER(S)   IMAGE(S)                 SELECTOR
+rs/prometheus-849432243   1         1         1         59s       prometheus     prom/prometheus:v1.4.1   app=prometheus,pod-template-hash=849432243
+
+
+
+kubectl create -f node-exporter.yml
+
+
+
+kubectl create -f kube-state-metrics-deployment.yml
+kubectl create -f kube-state-metrics-service.yml
+
+
+
+minikube service --namespace monitoring prometheus
+minikube service --namespace monitoring kube-state-metrics
+
+
+
+minikube service --namespace monitoring kube-state-metrics
+
+
+
+kubectl delete all --selector app=kube-state-metrics --namespace monitoring
+
+kubectl delete all --all --namespace monitoring
+kubectl delete configmap --all --namespace monitoring
+kubectl delete daemonset --all --namespace monitoring
+
