@@ -40,6 +40,8 @@ kubectl create -f kube-state-metrics-service.yml
 minikube service --namespace monitoring prometheus
 minikube service --namespace monitoring kube-state-metrics
 
+minikube service --url --namespace monitoring prometheus
+
 
 
 minikube service --namespace monitoring kube-state-metrics

@@ -11,8 +11,7 @@ data:
       scrape_interval:     15s
       evaluation_interval: 15s
       external_labels:
-        monitor: 'prometheus.my-kuberntes.lan'
-        type: 'kubernetes'
+        kubernetes_slave: 'prometheus.my-kuberntes.lan'
 
     scrape_configs:
       - job_name: prometheus
