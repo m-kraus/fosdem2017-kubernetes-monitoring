@@ -1,11 +1,11 @@
-  - job_name: 'kube_cluster_metrics'
+  - job_name: 'kube_cluster_prometheus_metrics'
     metrics_path: '/metrics'
     honor_labels: true
     params:
       'match[]':
         - '{__name__=~"^job:"}'
     static_configs:
-      - targets: ['192.168.99.100:30288']
+      - targets: ['192.168.99.100:31070']
         # Note: Get the service ip and port using: "minikube service --url --namespace monitoring prometheus"
 
   - job_name: 'kube_cluster_federation'
@@ -13,8 +13,7 @@
     honor_labels: true
     params:
       'match[]':
-          - '{__name__=~"^kubernetes_slave:.*"}'
-          # - '{job=~"^kubernetes.+"}'
+          - '{job=~"^kubernetes.+"}'
     static_configs:
-      - targets: ['192.168.99.100:30288']
+      - targets: ['192.168.99.100:31070']
         # Note: Get the service ip and port using: "minikube service --url --namespace monitoring prometheus"
