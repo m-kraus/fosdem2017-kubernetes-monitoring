@@ -11,103 +11,45 @@
   ],
   "__requires": [
     {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.1.1"
+    },
+    {
       "type": "panel",
       "id": "graph",
       "name": "Graph",
       "version": ""
     },
     {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "4.0.2"
-    },
-    {
       "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
       "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
     }
   ],
-  "id": null,
-  "title": "Kubernetes Dashboard Extended",
-  "description": "Monitors Kubernetes cluster using Prometheus. Shows overall cluster CPU / Memory / Filesystem usage as well as individual pod, containers, systemd services statistics. Uses cAdvisor metrics only.",
-  "tags": [
-    "kubernetes"
-  ],
-  "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "sharedCrosshair": false,
-  "hideControls": false,
-  "time": {
-    "from": "now-5m",
-    "to": "now"
-  },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
-  "templating": {
-    "list": [
-      {
-        "allValue": ".*",
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "Node",
-        "options": [],
-        "query": "label_values(kubernetes_io_hostname)",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      }
-    ]
-  },
   "annotations": {
     "list": []
   },
-  "refresh": "10s",
-  "schemaVersion": 13,
-  "version": 2,
-  "links": [],
+  "description": "Monitors Kubernetes cluster using Prometheus. Shows overall cluster CPU / Memory / Filesystem usage as well as individual pod, containers, systemd services statistics. Uses cAdvisor metrics only.",
+  "editable": true,
   "gnetId": 315,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "refresh": "10s",
   "rows": [
     {
-      "title": "Network I/O pressure",
+      "collapse": false,
+      "height": "200px",
       "panels": [
         {
           "aliasColors": {},
@@ -204,16 +146,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "200px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Network I/O pressure",
+      "titleSize": "h6"
     },
     {
-      "title": "Total usage",
+      "collapse": false,
+      "height": "250px",
       "panels": [
         {
           "cacheTimeout": null,
@@ -829,7 +771,7 @@
           },
           "targets": [
             {
-              "expr": "sum (container_fs_usage_bytes{device=~\"^/dev/[sv]da9$\",id=\"/\",kubernetes_io_hostname=~\"^$Node$\"})",
+              "expr": "sum (container_fs_usage_bytes{device=~\"^/dev/[sv]da[0-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$Node$\"})",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -908,7 +850,7 @@
           },
           "targets": [
             {
-              "expr": "sum (container_fs_limit_bytes{device=~\"^/dev/[sv]da9$\",id=\"/\",kubernetes_io_hostname=~\"^$Node$\"})",
+              "expr": "sum (container_fs_limit_bytes{device=~\"^/dev/[sv]da[0-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$Node$\"})",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -929,16 +871,16 @@
           "valueName": "current"
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Total usage",
+      "titleSize": "h6"
     },
     {
-      "title": "Pods CPU usage",
+      "collapse": false,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1025,16 +967,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Pods CPU usage",
+      "titleSize": "h6"
     },
     {
-      "title": "System services CPU usage",
+      "collapse": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1119,16 +1061,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "System services CPU usage",
+      "titleSize": "h6"
     },
     {
-      "title": "Containers CPU usage",
+      "collapse": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1235,16 +1177,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Containers CPU usage",
+      "titleSize": "h6"
     },
     {
-      "title": "All processes CPU usage",
+      "collapse": true,
+      "height": "500px",
       "panels": [
         {
           "aliasColors": {},
@@ -1328,16 +1270,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "500px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "All processes CPU usage",
+      "titleSize": "h6"
     },
     {
-      "title": "Pods memory usage",
+      "collapse": false,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1423,16 +1365,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Pods memory usage",
+      "titleSize": "h6"
     },
     {
-      "title": "System services memory usage",
+      "collapse": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1516,16 +1458,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "System services memory usage",
+      "titleSize": "h6"
     },
     {
-      "title": "Containers memory usage",
+      "collapse": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1627,16 +1569,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Containers memory usage",
+      "titleSize": "h6"
     },
     {
-      "title": "All processes memory usage",
+      "collapse": true,
+      "height": "500px",
       "panels": [
         {
           "aliasColors": {},
@@ -1720,16 +1662,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "500px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "All processes memory usage",
+      "titleSize": "h6"
     },
     {
-      "title": "Pods network I/O",
+      "collapse": false,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1824,16 +1766,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Pods network I/O",
+      "titleSize": "h6"
     },
     {
-      "title": "Containers network I/O",
+      "collapse": true,
+      "height": "250px",
       "panels": [
         {
           "aliasColors": {},
@@ -1968,16 +1910,16 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Containers network I/O",
+      "titleSize": "h6"
     },
     {
-      "title": "All processes network I/O",
+      "collapse": true,
+      "height": "500px",
       "panels": [
         {
           "aliasColors": {},
@@ -2070,13 +2012,73 @@
           ]
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "500px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": true
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "All processes network I/O",
+      "titleSize": "h6"
     }
-  ]
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [
+    "kubernetes"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "Node",
+        "options": [],
+        "query": "label_values(kubernetes_io_hostname)",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Kubernetes Dashboard Extended",
+  "version": 0
 }
